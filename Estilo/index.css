@@ -1,0 +1,330 @@
+/* ============================================================
+   INDEX — Portada del Registro Civil Natalier
+   ============================================================ */
+
+.contenido {
+    position: relative;
+    z-index: 1;
+}
+
+/* ------------------------------------------------------------
+   Héroe
+   ------------------------------------------------------------ */
+
+.heroe {
+    position: relative;
+    display: grid;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding-block: clamp(3rem, 9vw, 6.5rem);
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 940px) {
+    .heroe {
+        grid-template-columns: 1.1fr 0.9fr;
+    }
+}
+
+.heroe__insignia {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    font-family: var(--fuente-oficial);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--azul-brillo);
+    background: rgba(56, 182, 255, 0.12);
+    border: 1px solid rgba(127, 227, 255, 0.4);
+    border-radius: 999px;
+}
+
+.heroe__titulo {
+    margin-top: 1.1rem;
+    color: var(--crema);
+}
+
+.heroe__titulo em {
+    display: block;
+    font-style: normal;
+    color: var(--rosa-kitty);
+    text-shadow: 0 0 22px rgba(255, 158, 199, 0.5);
+}
+
+.heroe__texto {
+    max-width: 52ch;
+    margin-top: 1.1rem;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.12rem);
+    color: var(--texto-tenue);
+}
+
+.heroe__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.9rem;
+}
+
+.heroe__datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.2rem, 4vw, 2.5rem);
+    margin-top: 2.4rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(127, 227, 255, 0.25);
+}
+
+.dato__numero {
+    font-family: var(--fuente-titulo);
+    font-size: 1.7rem;
+    color: var(--azul-brillo);
+}
+
+.dato__texto {
+    font-family: var(--fuente-oficial);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+}
+
+/* ------------------------------------------------------------
+   Vista previa de la cédula
+   ------------------------------------------------------------ */
+
+.previa {
+    display: grid;
+    place-items: center;
+    perspective: 1100px;
+}
+
+.cedula {
+    position: relative;
+    width: min(100%, 400px);
+    padding: 1.15rem;
+    color: var(--tinta);
+    background: var(--crema);
+    background-image:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.022) 0 1px, transparent 1px 4px),
+        radial-gradient(circle at 88% 12%, rgba(255, 158, 199, 0.28), transparent 45%),
+        radial-gradient(circle at 8% 92%, rgba(56, 182, 255, 0.28), transparent 45%);
+    border: var(--trazo) solid var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-dura), 0 22px 45px rgba(0, 0, 0, 0.45);
+    transform: rotate(-3deg);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cedula:hover {
+    transform: rotate(0deg) scale(1.03);
+}
+
+.cedula__cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: var(--trazo-fino) solid var(--tinta);
+}
+
+.cedula__pais {
+    font-family: var(--fuente-oficial);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+}
+
+.cedula__tipo {
+    font-family: var(--fuente-titulo);
+    font-size: 1.02rem;
+    color: var(--tinta);
+}
+
+.cedula__cuerpo {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 0.9rem;
+    padding: 0.9rem 0;
+}
+
+.cedula__foto {
+    display: grid;
+    place-items: center;
+    height: 108px;
+    font-size: 2.4rem;
+    background: linear-gradient(160deg, var(--azul-brillo), var(--rosa-suave));
+    border: var(--trazo-fino) solid var(--tinta);
+    border-radius: var(--radio-sm);
+}
+
+.cedula__campos {
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+}
+
+.cedula__clave {
+    font-family: var(--fuente-oficial);
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tinta-suave);
+}
+
+.cedula__valor {
+    font-family: var(--fuente-titulo);
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: var(--tinta);
+}
+
+.cedula__pie {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: var(--trazo-fino) dashed var(--tinta-suave);
+}
+
+.cedula__firma {
+    font-family: 'Segoe Script', 'Brush Script MT', cursive;
+    font-size: 1.25rem;
+    color: var(--tinta-suave);
+}
+
+.cedula__banda {
+    font-family: var(--fuente-oficial);
+    font-size: 0.5rem;
+    letter-spacing: 0.06em;
+    color: rgba(58, 58, 74, 0.55);
+    word-break: break-all;
+    max-width: 55%;
+}
+
+/* Sello "PENDIENTE" cruzado sobre la muestra */
+.cedula__sello {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 3.6rem;
+    padding: 0.25rem 0.75rem;
+    font-family: var(--fuente-oficial);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--rojo-alerta);
+    border: var(--trazo-fino) solid var(--rojo-alerta);
+    border-radius: 6px;
+    opacity: 0.85;
+    transform: rotate(-6deg);
+    animation: entrar-sello 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+/* ------------------------------------------------------------
+   Pasos del trámite
+   ------------------------------------------------------------ */
+
+.rejilla {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    margin-top: 2.2rem;
+}
+
+.paso {
+    position: relative;
+    padding: 1.6rem 1.35rem 1.35rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.paso:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-dura), var(--resplandor-azul);
+}
+
+.paso__numero {
+    position: absolute;
+    top: -1.05rem;
+    left: 1.2rem;
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    font-family: var(--fuente-titulo);
+    font-size: 1.1rem;
+    color: var(--tinta);
+    background: var(--amarillo);
+    border: var(--trazo) solid var(--borde);
+    border-radius: 50%;
+}
+
+.paso__icono {
+    font-size: 1.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.paso__titulo {
+    margin-bottom: 0.4rem;
+    color: var(--crema);
+}
+
+.paso p {
+    font-size: 0.92rem;
+    color: var(--texto-tenue);
+}
+
+/* ------------------------------------------------------------
+   Encabezado de sección
+   ------------------------------------------------------------ */
+
+.encabezado-seccion {
+    max-width: 60ch;
+    text-align: center;
+    margin-inline: auto;
+}
+
+.encabezado-seccion h2 {
+    margin-top: 0.5rem;
+    color: var(--crema);
+}
+
+.encabezado-seccion p {
+    margin-top: 0.75rem;
+    color: var(--texto-tenue);
+}
+
+/* ------------------------------------------------------------
+   Llamado final
+   ------------------------------------------------------------ */
+
+.llamado {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2rem, 6vw, 3.4rem);
+    text-align: center;
+    background:
+        linear-gradient(135deg, rgba(56, 182, 255, 0.22), rgba(255, 158, 199, 0.18)),
+        rgba(22, 38, 74, 0.8);
+}
+
+.llamado h2 {
+    color: var(--crema);
+}
+
+.llamado p {
+    max-width: 52ch;
+    margin: 0.8rem auto 1.7rem;
+    color: var(--texto-tenue);
+}
+
+.llamado__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    justify-content: center;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro — Registro Civil Natalier</title>
+    <meta name="description" content="Abre tu expediente y tramita tu Tarjeta de Identificación Natalier.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="Estilo/base.css">
+    <link rel="stylesheet" href="Estilo/auth.css">
+    <link rel="stylesheet" href="Animaciones/animaciones.css">
+</head>
+
+<body data-solo-invitados="true">
+    <div class="ambiente" data-ambiente aria-hidden="true">
+        <div class="ambiente__estatica"></div>
+        <div class="ambiente__barrido"></div>
+    </div>
+
+    <header class="barra">
+        <a class="barra__marca" href="Index.html">
+            <span class="marca__sello anim-ojo" aria-hidden="true">💙</span>
+            <span>Registro <strong class="resalte-azul">Natalier</strong></span>
+        </a>
+
+        <nav class="barra__enlaces" aria-label="Navegación principal">
+            <a class="barra__enlace" href="Index.html">Inicio</a>
+            <a class="boton boton--fantasma" href="Login.html">Iniciar sesión</a>
+        </nav>
+    </header>
+
+    <main class="auth">
+        <span class="vigia vigia--izquierda anim-flotar" aria-hidden="true">🎀</span>
+        <span class="vigia vigia--derecha anim-flotar" aria-hidden="true">🦴</span>
+
+        <div class="auth__caja auth__caja--ancha">
+            <div class="auth__encabezado">
+                <div class="auth__sello anim-ojo" aria-hidden="true">📝</div>
+                <h1 class="auth__titulo">Abre tu expediente</h1>
+                <p class="auth__bajada">
+                    Un par de datos y quedas registrado como Natalier oficial.
+                </p>
+            </div>
+
+            <section class="panel auth__panel">
+                <div class="auth__folio">
+                    <span class="etiqueta-oficial">Formulario NAT-02</span>
+                    <span class="etiqueta-oficial">Alta de ciudadano</span>
+                </div>
+
+                <div class="aviso" data-aviso role="status" aria-live="polite"></div>
+
+                <form class="auth__formulario" id="formulario-registro" novalidate>
+                    <div class="campo">
+                        <label class="campo__etiqueta" for="usuario">Nombre de Natalier</label>
+                        <div class="campo__caja">
+                            <input class="campo__entrada" id="usuario" name="usuario" type="text"
+                                autocomplete="username" placeholder="Como te conocen en el chat"
+                                maxlength="50" required>
+                        </div>
+                        <span class="campo__error" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label class="campo__etiqueta" for="correo">Correo electrónico</label>
+                        <div class="campo__caja">
+                            <input class="campo__entrada" id="correo" name="correo" type="email"
+                                autocomplete="email" placeholder="tucorreo@ejemplo.com" required>
+                        </div>
+                        <span class="campo__error" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo campo--con-boton">
+                        <label class="campo__etiqueta" for="clave">Contraseña</label>
+                        <div class="campo__caja">
+                            <input class="campo__entrada" id="clave" name="clave" type="password"
+                                autocomplete="new-password" placeholder="Mínimo 8 caracteres" required>
+                            <button class="campo__ojo" type="button" data-ver-clave="clave"
+                                aria-label="Mostrar contraseña" aria-pressed="false">👁</button>
+                        </div>
+
+                        <div class="medidor" data-medidor data-nivel="0">
+                            <div class="medidor__barras" aria-hidden="true">
+                                <span class="medidor__tramo"></span>
+                                <span class="medidor__tramo"></span>
+                                <span class="medidor__tramo"></span>
+                                <span class="medidor__tramo"></span>
+                            </div>
+                            <span class="medidor__texto" data-medidor-texto aria-live="polite">—</span>
+                        </div>
+
+                        <span class="campo__error" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo campo--con-boton">
+                        <label class="campo__etiqueta" for="confirmacion">Repite la contraseña</label>
+                        <div class="campo__caja">
+                            <input class="campo__entrada" id="confirmacion" name="confirmacion" type="password"
+                                autocomplete="new-password" placeholder="••••••••" required>
+                            <button class="campo__ojo" type="button" data-ver-clave="confirmacion"
+                                aria-label="Mostrar contraseña" aria-pressed="false">👁</button>
+                        </div>
+                        <span class="campo__error" aria-live="polite"></span>
+                    </div>
+
+                    <label class="casilla">
+                        <input type="checkbox" id="acepto" name="acepto">
+                        <span>
+                            Acepto el <strong>pacto Natalier</strong>: buena onda en el chat,
+                            cero drama y respeto a la comunidad.
+                        </span>
+                    </label>
+
+                    <button class="boton boton--rosa boton--ancho brillo-hover" type="submit">
+                        Tramitar mi cédula
+                    </button>
+                </form>
+
+                <div class="auth__separador">Aviso</div>
+
+                <p class="auth__pie">
+                    Tu contraseña viaja cifrada y nunca la vemos en texto plano.
+                    Si tu proyecto pide confirmación por correo, revisa tu bandeja
+                    (y spam) después de registrarte.
+                </p>
+            </section>
+
+            <p class="auth__pie">
+                ¿Ya tienes expediente abierto?
+                <a href="Login.html"><strong>Inicia sesión</strong></a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="pie">
+        <p class="pie__nota">Registro Civil Natalier · Comunidad de Natalan</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="Scripts/supabaseClient.js"></script>
+    <script src="Scripts/almacen.js"></script>
+    <script src="Scripts/formularios.js"></script>
+    <script src="Animaciones/efectos.js"></script>
+</body>
+
+</html>

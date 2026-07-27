@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión — Registro Civil Natalier</title>
+    <meta name="description" content="Entra a tu expediente Natalier.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="Estilo/base.css">
+    <link rel="stylesheet" href="Estilo/auth.css">
+    <link rel="stylesheet" href="Animaciones/animaciones.css">
+</head>
+
+<body data-solo-invitados="true">
+    <div class="ambiente" data-ambiente aria-hidden="true">
+        <div class="ambiente__estatica"></div>
+        <div class="ambiente__barrido"></div>
+    </div>
+
+    <header class="barra">
+        <a class="barra__marca" href="Index.html">
+            <span class="marca__sello anim-ojo" aria-hidden="true">💙</span>
+            <span>Registro <strong class="resalte-azul">Natalier</strong></span>
+        </a>
+
+        <nav class="barra__enlaces" aria-label="Navegación principal">
+            <a class="barra__enlace" href="Index.html">Inicio</a>
+            <a class="boton boton--rosa brillo-hover" href="Registro.html">Registrarme</a>
+        </nav>
+    </header>
+
+    <main class="auth">
+        <span class="vigia vigia--izquierda anim-flotar" aria-hidden="true">🦴</span>
+        <span class="vigia vigia--derecha anim-flotar" aria-hidden="true">🎀</span>
+
+        <div class="auth__caja">
+            <div class="auth__encabezado">
+                <div class="auth__sello anim-ojo" aria-hidden="true">🪪</div>
+                <h1 class="auth__titulo">Bienvenido de vuelta</h1>
+                <p class="auth__bajada">Identifícate para entrar a tu expediente.</p>
+            </div>
+
+            <section class="panel auth__panel">
+                <div class="auth__folio">
+                    <span class="etiqueta-oficial">Formulario NAT-01</span>
+                    <span class="etiqueta-oficial">Acceso</span>
+                </div>
+
+                <!-- Aviso de error o éxito, lo llena formularios.js -->
+                <div class="aviso" data-aviso role="status" aria-live="polite"></div>
+
+                <form class="auth__formulario" id="formulario-login" novalidate>
+                    <div class="campo">
+                        <label class="campo__etiqueta" for="correo">Correo electrónico</label>
+                        <div class="campo__caja">
+                            <input class="campo__entrada" id="correo" name="correo" type="email"
+                                autocomplete="email" placeholder="tucorreo@ejemplo.com" required>
+                        </div>
+                        <span class="campo__error" aria-live="polite"></span>
+                    </div>
+
+                    <div class="campo campo--con-boton">
+                        <label class="campo__etiqueta" for="clave">Contraseña</label>
+                        <div class="campo__caja">
+                            <input class="campo__entrada" id="clave" name="clave" type="password"
+                                autocomplete="current-password" placeholder="••••••••" required>
+                            <button class="campo__ojo" type="button" data-ver-clave="clave"
+                                aria-label="Mostrar contraseña" aria-pressed="false">👁</button>
+                        </div>
+                        <span class="campo__error" aria-live="polite"></span>
+                    </div>
+
+                    <div class="auth__fila">
+                        <label class="casilla">
+                            <input type="checkbox" id="recordar" name="recordar">
+                            <span>Mantener mi sesión abierta</span>
+                        </label>
+                        <a href="#" onclick="return false;" title="Función pendiente">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button class="boton boton--ancho brillo-hover" type="submit">Entrar al expediente</button>
+                </form>
+
+                <div class="auth__separador">o</div>
+
+                <p class="auth__pie">
+                    ¿Todavía no eres Natalier registrado?
+                    <a href="Registro.html"><strong>Tramita tu cédula</strong></a>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="pie">
+        <p class="pie__nota">Registro Civil Natalier · Comunidad de Natalan</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="Scripts/supabaseClient.js"></script>
+    <script src="Scripts/almacen.js"></script>
+    <script src="Scripts/formularios.js"></script>
+    <script src="Animaciones/efectos.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+/* ============================================================
+   AUTH — Login y Registro
+   Un formulario que se siente como una ventanilla de trámite,
+   pero acogedora: papel oficial en medio del azul de Waterfall.
+   ============================================================ */
+
+.auth {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    min-height: calc(100vh - 68px);
+    padding: clamp(1.5rem, 5vw, 3.5rem) 1.25rem;
+}
+
+.auth__caja {
+    width: min(100%, 480px);
+    animation: aparecer-arriba 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.auth__caja--ancha {
+    width: min(100%, 560px);
+}
+
+/* ------------------------------------------------------------
+   Encabezado del trámite
+   ------------------------------------------------------------ */
+
+.auth__encabezado {
+    margin-bottom: 1.6rem;
+    text-align: center;
+}
+
+.auth__sello {
+    display: grid;
+    place-items: center;
+    width: 4.6rem;
+    height: 4.6rem;
+    margin: 0 auto 0.9rem;
+    font-size: 2.1rem;
+    background: radial-gradient(circle at 32% 28%, var(--azul-brillo), var(--azul-hondo) 70%);
+    border: var(--trazo) solid var(--borde);
+    border-radius: 50%;
+    box-shadow: var(--sombra-dura-sm), var(--resplandor-azul);
+}
+
+.auth__titulo {
+    font-size: clamp(1.7rem, 1.3rem + 1.6vw, 2.3rem);
+    color: var(--crema);
+}
+
+.auth__bajada {
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--texto-tenue);
+}
+
+/* ------------------------------------------------------------
+   Panel del formulario
+   ------------------------------------------------------------ */
+
+.auth__panel {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Franja tricolor superior, guiño al documento oficial */
+.auth__panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    background: linear-gradient(90deg,
+        var(--azul-sans) 0 33%,
+        var(--crema) 33% 66%,
+        var(--rosa-kitty) 66% 100%);
+}
+
+.auth__folio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.35rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px dashed rgba(127, 227, 255, 0.3);
+}
+
+.auth__formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+}
+
+.auth__fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    font-size: 0.87rem;
+}
+
+.auth__separador {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 0.4rem 0;
+    font-family: var(--fuente-oficial);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+}
+
+.auth__separador::before,
+.auth__separador::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(127, 227, 255, 0.35), transparent);
+}
+
+.auth__pie {
+    margin-top: 1.4rem;
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--texto-tenue);
+}
+
+/* ------------------------------------------------------------
+   Casilla de verificación kawaii
+   ------------------------------------------------------------ */
+
+.casilla {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    font-size: 0.87rem;
+    line-height: 1.45;
+    color: var(--texto-tenue);
+    cursor: pointer;
+}
+
+.casilla input {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.15rem;
+    accent-color: var(--rosa-kitty);
+    cursor: pointer;
+}
+
+.casilla:hover {
+    color: var(--crema);
+}
+
+/* ------------------------------------------------------------
+   Medidor de fuerza de contraseña
+   ------------------------------------------------------------ */
+
+.medidor {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.15rem;
+}
+
+.medidor__barras {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+}
+
+.medidor__tramo {
+    flex: 1;
+    height: 6px;
+    background: rgba(127, 227, 255, 0.15);
+    border-radius: 999px;
+    transition: background-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.medidor[data-nivel="1"] .medidor__tramo.esta-activo { background: var(--rojo-alerta); }
+.medidor[data-nivel="2"] .medidor__tramo.esta-activo { background: var(--amarillo); }
+.medidor[data-nivel="3"] .medidor__tramo.esta-activo { background: var(--azul-sans); }
+.medidor[data-nivel="4"] .medidor__tramo.esta-activo {
+    background: var(--verde-ok);
+    box-shadow: 0 0 8px rgba(87, 217, 154, 0.6);
+}
+
+.medidor__texto {
+    min-width: 8.5rem;
+    font-size: 0.72rem;
+    text-align: right;
+    color: var(--texto-tenue);
+}
+
+/* ------------------------------------------------------------
+   Saludo en la barra cuando hay sesión
+   ------------------------------------------------------------ */
+
+.barra__saludo {
+    font-size: 0.9rem;
+    color: var(--texto-tenue);
+}
+
+.barra__saludo strong {
+    color: var(--azul-brillo);
+}
+
+/* ------------------------------------------------------------
+   Guiño de Sans: un par de ojos que vigilan desde el borde
+   ------------------------------------------------------------ */
+
+.vigia {
+    position: absolute;
+    z-index: 0;
+    font-size: clamp(3rem, 9vw, 6rem);
+    opacity: 0.13;
+    pointer-events: none;
+    user-select: none;
+}
+
+.vigia--izquierda {
+    top: 12%;
+    left: 4%;
+    --giro: -14deg;
+}
+
+.vigia--derecha {
+    right: 5%;
+    bottom: 14%;
+    --giro: 18deg;
+}
+
+@media (max-width: 780px) {
+    .vigia {
+        display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .medidor__texto {
+        display: none;
+    }
+}

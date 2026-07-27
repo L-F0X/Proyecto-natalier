@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Civil Natalier — Comunidad de Natalan</title>
+    <meta name="description"
+        content="Tramita tu Tarjeta de Identificación Natalier: el documento oficial de la comunidad de Natalan.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="Estilo/base.css">
+    <link rel="stylesheet" href="Estilo/index.css">
+    <link rel="stylesheet" href="Animaciones/animaciones.css">
+</head>
+
+<body>
+    <!-- Capa de ambiente: estática, barrido y partículas -->
+    <div class="ambiente" data-ambiente aria-hidden="true">
+        <div class="ambiente__estatica"></div>
+        <div class="ambiente__barrido"></div>
+    </div>
+
+    <header class="barra">
+        <a class="barra__marca" href="Index.html">
+            <span class="marca__sello anim-ojo" aria-hidden="true">💙</span>
+            <span>Registro <strong class="resalte-azul">Natalier</strong></span>
+        </a>
+
+        <nav class="barra__enlaces" aria-label="Navegación principal">
+            <a class="barra__enlace barra__enlace--secundario" href="#tramite">El trámite</a>
+            <a class="barra__enlace barra__enlace--secundario" href="#comunidad">Comunidad</a>
+            <!-- formularios.js llena esta zona según haya sesión o no -->
+            <span class="barra__enlaces" data-zona-sesion></span>
+        </nav>
+    </header>
+
+    <main class="contenido">
+
+        <!-- ============ HÉROE ============ -->
+        <section class="contenedor heroe">
+            <div>
+                <span class="heroe__insignia anim-parpadeo">Expediente abierto · Natalandia</span>
+
+                <h1 class="heroe__titulo">
+                    Ya eres parte de la comunidad.
+                    <em class="anim-glitch">Ahora que conste por escrito.</em>
+                </h1>
+
+                <p class="heroe__texto">
+                    Crea tu <strong>Tarjeta de Identificación Natalier</strong>: el documento
+                    que te acredita como parte de la comunidad de <strong>Natalan</strong>.
+                    Nombre, número de expediente, foto y sello oficial. Todo tuyo, todo tuyo de verdad.
+                </p>
+
+                <div class="heroe__acciones" data-zona-hero>
+                    <a class="boton brillo-hover" href="Registro.html">
+                        <span aria-hidden="true">🪪</span> Tramitar mi cédula
+                    </a>
+                    <a class="boton boton--fantasma" href="Login.html">Ya tengo cuenta</a>
+                </div>
+
+                <div class="heroe__datos">
+                    <div>
+                        <div class="dato__numero">100%</div>
+                        <div class="dato__texto">Gratis, siempre</div>
+                    </div>
+                    <div>
+                        <div class="dato__numero">0</div>
+                        <div class="dato__texto">Filas que hacer</div>
+                    </div>
+                    <div>
+                        <div class="dato__numero">1</div>
+                        <div class="dato__texto">Comunidad</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Muestra de cédula -->
+            <div class="previa" data-paralaje="10">
+                <article class="cedula anim-flotar" aria-label="Muestra de la Tarjeta de Identificación Natalier">
+                    <header class="cedula__cabecera">
+                        <div>
+                            <div class="cedula__pais">República de Natalandia</div>
+                            <div class="cedula__tipo">Cédula Natalier</div>
+                        </div>
+                        <span aria-hidden="true" style="font-size:1.6rem">🎀</span>
+                    </header>
+
+                    <div class="cedula__cuerpo">
+                        <div class="cedula__foto" aria-hidden="true">💀</div>
+
+                        <div class="cedula__campos">
+                            <div>
+                                <div class="cedula__clave">Nombre Natalier</div>
+                                <div class="cedula__valor">Tu nombre aquí</div>
+                            </div>
+                            <div>
+                                <div class="cedula__clave">No. de expediente</div>
+                                <div class="cedula__valor">NAT-2026-000000</div>
+                            </div>
+                            <div>
+                                <div class="cedula__clave">Miembro desde</div>
+                                <div class="cedula__valor">— — —</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="cedula__pie">
+                        <div>
+                            <div class="cedula__clave">Firma del titular</div>
+                            <div class="cedula__firma">Natalier</div>
+                        </div>
+                        <div class="cedula__banda">NAT&lt;&lt;COMUNIDAD&lt;&lt;NATALAN&lt;&lt;0000000&lt;&lt;GTM</div>
+                    </footer>
+
+                    <span class="cedula__sello" data-sello-cedula>Pendiente</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- ============ EL TRÁMITE ============ -->
+        <section class="contenedor seccion" id="tramite">
+            <div class="encabezado-seccion" data-revelar>
+                <span class="etiqueta-oficial">Procedimiento</span>
+                <h2>Tres pasos y ya estás registrado</h2>
+                <p>
+                    Sin papeleo, sin ventanillas, sin que te manden a sacar otra copia.
+                    Lo prometido: rapidito.
+                </p>
+            </div>
+
+            <div class="rejilla">
+                <article class="panel paso" data-revelar data-revelar-retraso="0">
+                    <span class="paso__numero">1</span>
+                    <div class="paso__icono anim-rebote" aria-hidden="true">✍️</div>
+                    <h3 class="paso__titulo">Abre tu expediente</h3>
+                    <p>
+                        Registra tu nombre de Natalier y tu correo. Se te asigna un número
+                        de expediente único que nadie más va a tener.
+                    </p>
+                </article>
+
+                <article class="panel paso" data-revelar data-revelar-retraso="120">
+                    <span class="paso__numero">2</span>
+                    <div class="paso__icono anim-rebote" aria-hidden="true">🎨</div>
+                    <h3 class="paso__titulo">Personaliza tu cédula</h3>
+                    <p>
+                        Foto, colores, frase característica y tu rango dentro de la comunidad.
+                        Esta parte llega en la siguiente actualización.
+                    </p>
+                </article>
+
+                <article class="panel paso" data-revelar data-revelar-retraso="240">
+                    <span class="paso__numero">3</span>
+                    <div class="paso__icono anim-rebote" aria-hidden="true">📸</div>
+                    <h3 class="paso__titulo">Descárgala y presúmela</h3>
+                    <p>
+                        Guárdala como imagen y compártela en el chat, en Twitter o donde
+                        se junte la comunidad. Prueba oficial de que eres de los nuestros.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ============ COMUNIDAD ============ -->
+        <section class="contenedor seccion" id="comunidad">
+            <div class="encabezado-seccion" data-revelar>
+                <span class="etiqueta-oficial">Sobre nosotros</span>
+                <h2>¿Qué es un Natalier?</h2>
+                <p>
+                    Alguien que se quedó. Que aguanta los directos largos, que entiende los
+                    chistes internos y que defiende a <strong>Natalan</strong> en cualquier chat.
+                    Esta página existe para que eso tenga su documento.
+                </p>
+            </div>
+
+            <div class="rejilla">
+                <article class="panel paso" data-revelar>
+                    <div class="paso__icono" aria-hidden="true">🦴</div>
+                    <h3 class="paso__titulo">Hecha por la comunidad</h3>
+                    <p>
+                        Proyecto de fans, sin fines de lucro. Si quieres aportar un diseño,
+                        un fanart o una idea, hay lugar.
+                    </p>
+                </article>
+
+                <article class="panel paso" data-revelar data-revelar-retraso="120">
+                    <div class="paso__icono" aria-hidden="true">🔒</div>
+                    <h3 class="paso__titulo">Tus datos, cuidados de verdad</h3>
+                    <p>
+                        Tu expediente vive en una base de datos con contraseñas cifradas
+                        y acceso protegido. Nadie más puede leer o tocar tu perfil, ni
+                        siquiera desde la consola del navegador.
+                    </p>
+                </article>
+
+                <article class="panel paso" data-revelar data-revelar-retraso="240">
+                    <div class="paso__icono" aria-hidden="true">✨</div>
+                    <h3 class="paso__titulo">Esto apenas empieza</h3>
+                    <p>
+                        Vienen rangos, insignias por antigüedad, ediciones especiales
+                        y un directorio público de Natalieres.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ============ LLAMADO FINAL ============ -->
+        <section class="contenedor seccion">
+            <div class="panel llamado" data-revelar data-zona-llamado>
+                <h2>¿Listo para hacerlo oficial?</h2>
+                <p>
+                    Toma menos tiempo que esperar a que empiece el directo.
+                    Tu número de expediente ya te está esperando.
+                </p>
+                <div class="llamado__acciones">
+                    <a class="boton boton--rosa brillo-hover" href="Registro.html">Crear mi cuenta</a>
+                    <a class="boton boton--fantasma" href="Login.html">Iniciar sesión</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pie">
+        <p>Registro Civil Natalier · Proyecto de un fan para la comunidad de <strong>Natalan</strong> 💙🎀</p>
+        <p class="pie__nota">Afiliación SAX-COMPANY  · Hecho por MR.SAX (L-F0X)</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="Scripts/supabaseClient.js"></script>
+    <script src="Scripts/almacen.js"></script>
+    <script src="Scripts/formularios.js"></script>
+    <script src="Animaciones/efectos.js"></script>
+</body>
+
+</html>

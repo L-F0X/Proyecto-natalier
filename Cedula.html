@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cédula — Registro Civil Natalier</title>
+    <meta name="description" content="Tu Cédula Natalier oficial, con tu número de expediente real.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="Estilo/base.css">
+    <link rel="stylesheet" href="Estilo/index.css">
+    <link rel="stylesheet" href="Animaciones/animaciones.css">
+</head>
+
+<body data-requiere-sesion="true">
+    <div class="ambiente" data-ambiente aria-hidden="true">
+        <div class="ambiente__estatica"></div>
+        <div class="ambiente__barrido"></div>
+    </div>
+
+    <header class="barra">
+        <a class="barra__marca" href="Index.html">
+            <span class="marca__sello anim-ojo" aria-hidden="true">💙</span>
+            <span>Registro <strong class="resalte-azul">Natalier</strong></span>
+        </a>
+
+        <nav class="barra__enlaces" aria-label="Navegación principal">
+            <a class="barra__enlace" href="Index.html">Inicio</a>
+            <span class="barra__enlaces" data-zona-sesion></span>
+        </nav>
+    </header>
+
+    <main class="contenedor seccion">
+        <div class="encabezado-seccion" data-revelar>
+            <span class="etiqueta-oficial">Expediente personal</span>
+            <h2>Tu Cédula Natalier</h2>
+            <p>Esta es tu credencial oficial dentro de la comunidad de <strong>Natalan</strong>.</p>
+        </div>
+
+        <div class="previa" style="margin-top: 2.5rem;">
+            <article class="cedula anim-flotar" aria-label="Tu Cédula Natalier">
+                <header class="cedula__cabecera">
+                    <div>
+                        <div class="cedula__pais">República de Natalandia</div>
+                        <div class="cedula__tipo">Cédula Natalier</div>
+                    </div>
+                    <span aria-hidden="true" style="font-size:1.6rem">🎀</span>
+                </header>
+
+                <div class="cedula__cuerpo">
+                    <div class="cedula__foto" aria-hidden="true">💙</div>
+
+                    <div class="cedula__campos">
+                        <div>
+                            <div class="cedula__clave">Nombre Natalier</div>
+                            <div class="cedula__valor" data-cedula-nombre>Cargando…</div>
+                        </div>
+                        <div>
+                            <div class="cedula__clave">No. de expediente</div>
+                            <div class="cedula__valor" data-cedula-expediente>Cargando…</div>
+                        </div>
+                        <div>
+                            <div class="cedula__clave">Miembro desde</div>
+                            <div class="cedula__valor" data-cedula-fecha>Cargando…</div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="cedula__pie">
+                    <div>
+                        <div class="cedula__clave">Firma del titular</div>
+                        <div class="cedula__firma">Natalier</div>
+                    </div>
+                    <div class="cedula__banda">NAT&lt;&lt;NATALANDIA&lt;&lt;NATALAN&lt;&lt;0000000&lt;&lt;GTM</div>
+                </footer>
+
+                <span class="cedula__sello">Vigente</span>
+            </article>
+        </div>
+
+        <div class="panel centrado" data-revelar
+            style="margin-top: 2.5rem; max-width: 46rem; margin-inline: auto;">
+            <h3>La personalización llega pronto</h3>
+            <p class="texto-tenue" style="margin-top: 0.5rem;">
+                Foto, colores, frase característica y tu rango dentro de la comunidad
+                se agregan en la siguiente actualización. Por ahora, esta es tu Cédula
+                base — ya con tu número de expediente real.
+            </p>
+        </div>
+    </main>
+
+    <footer class="pie">
+        <p class="pie__nota">Registro Civil Natalier · Comunidad de Natalan</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="Scripts/supabaseClient.js"></script>
+    <script src="Scripts/almacen.js"></script>
+    <script src="Scripts/formularios.js"></script>
+    <script src="Scripts/cedula.js"></script>
+    <script src="Animaciones/efectos.js"></script>
+</body>
+
+</html>

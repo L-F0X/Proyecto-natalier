@@ -1,0 +1,489 @@
+/* ============================================================
+   BASE — Sistema de diseño Natalier
+   Paleta: azul Sans (Undertale) + rosa kawaii (Hello Kitty)
+   Forma:  contornos gruesos y papel crema (Omori)
+   Ambiente: penumbra y estática sutil (FNAF)
+   ------------------------------------------------------------
+   Todo el color vive aquí. Para reajustar la identidad de la
+   comunidad después de ver los fanarts, basta tocar :root.
+   ============================================================ */
+
+:root {
+    /* --- Azules Sans: del hueso brillante al vacío --- */
+    --azul-brillo: #7fe3ff;
+    --azul-sans: #38b6ff;
+    --azul-hondo: #1c6fb8;
+    --azul-noche: #0e1a33;
+    --azul-abismo: #070d1c;
+
+    /* --- Rosas kawaii --- */
+    --rosa-kitty: #ff9ec7;
+    --rosa-suave: #ffd6e8;
+    --rosa-hondo: #e4649b;
+
+    /* --- Neutros Omori: papel y tinta --- */
+    --crema: #fdf6e8;
+    --crema-sombra: #ece2cd;
+    --tinta: #16161d;
+    --tinta-suave: #3a3a4a;
+
+    /* --- Acentos --- */
+    --amarillo: #ffd45e;
+    --morado-fnaf: #4b3a72;
+    --rojo-alerta: #ff5c6c;
+    --verde-ok: #57d99a;
+
+    /* --- Roles semánticos --- */
+    --fondo: var(--azul-noche);
+    --fondo-alto: #16264a;
+    --texto: var(--crema);
+    --texto-tenue: #a9b7d4;
+    --borde: var(--tinta);
+    --acento: var(--azul-sans);
+    --acento-2: var(--rosa-kitty);
+
+    /* --- Trazo grueso estilo Omori --- */
+    --trazo: 3px;
+    --trazo-fino: 2px;
+    --radio: 18px;
+    --radio-sm: 10px;
+    --sombra-dura: 6px 6px 0 var(--tinta);
+    --sombra-dura-sm: 4px 4px 0 var(--tinta);
+    --resplandor-azul: 0 0 18px rgba(56, 182, 255, 0.55);
+    --resplandor-rosa: 0 0 18px rgba(255, 158, 199, 0.55);
+
+    /* --- Tipografía --- */
+    --fuente-titulo: 'Fredoka', 'Baloo 2', 'Comic Sans MS', system-ui, sans-serif;
+    --fuente-texto: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+    --fuente-oficial: 'Courier New', 'Consolas', monospace;
+
+    /* --- Ritmo --- */
+    --espacio: 1rem;
+    --ancho-max: 1180px;
+}
+
+/* ------------------------------------------------------------
+   Reset
+   ------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--fuente-texto);
+    font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+    line-height: 1.65;
+    color: var(--texto);
+    background-color: var(--fondo);
+    /* Cielo de Waterfall: azul que se hunde en negro */
+    background-image:
+        radial-gradient(ellipse 80% 55% at 50% -10%, rgba(56, 182, 255, 0.28), transparent 70%),
+        radial-gradient(ellipse 60% 45% at 85% 105%, rgba(255, 158, 199, 0.16), transparent 70%),
+        linear-gradient(180deg, var(--azul-noche) 0%, var(--azul-abismo) 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+a {
+    color: var(--azul-brillo);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+ul {
+    list-style: none;
+}
+
+/* ------------------------------------------------------------
+   Tipografía
+   ------------------------------------------------------------ */
+
+h1, h2, h3, h4 {
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+}
+
+h1 { font-size: clamp(2.1rem, 1.5rem + 3vw, 4rem); }
+h2 { font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem); }
+h3 { font-size: clamp(1.15rem, 1rem + 0.8vw, 1.5rem); }
+
+.etiqueta-oficial {
+    font-family: var(--fuente-oficial);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--texto-tenue);
+}
+
+.texto-tenue {
+    color: var(--texto-tenue);
+}
+
+.resalte-azul {
+    color: var(--azul-brillo);
+    text-shadow: var(--resplandor-azul);
+}
+
+.resalte-rosa {
+    color: var(--rosa-kitty);
+    text-shadow: var(--resplandor-rosa);
+}
+
+/* ------------------------------------------------------------
+   Layout
+   ------------------------------------------------------------ */
+
+.contenedor {
+    width: min(100% - 2.5rem, var(--ancho-max));
+    margin-inline: auto;
+}
+
+.seccion {
+    padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+.pila {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio);
+}
+
+/* ------------------------------------------------------------
+   Botones
+   ------------------------------------------------------------ */
+
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1.7rem;
+    font-family: var(--fuente-titulo);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--tinta);
+    background: var(--azul-sans);
+    border: var(--trazo) solid var(--borde);
+    border-radius: 999px;
+    box-shadow: var(--sombra-dura-sm);
+    transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.2s ease;
+}
+
+.boton:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--tinta), var(--resplandor-azul);
+    text-decoration: none;
+}
+
+.boton:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--tinta);
+}
+
+.boton--rosa {
+    background: var(--rosa-kitty);
+}
+
+.boton--rosa:hover {
+    box-shadow: 6px 6px 0 var(--tinta), var(--resplandor-rosa);
+}
+
+.boton--fantasma {
+    color: var(--crema);
+    background: transparent;
+    border-color: var(--azul-sans);
+    box-shadow: none;
+}
+
+.boton--fantasma:hover {
+    background: rgba(56, 182, 255, 0.14);
+    box-shadow: var(--resplandor-azul);
+}
+
+.boton--ancho {
+    width: 100%;
+}
+
+/* Foco visible y consistente en todo el sitio */
+:where(a, button, input, select, textarea):focus-visible {
+    outline: var(--trazo-fino) solid var(--azul-brillo);
+    outline-offset: 3px;
+    border-radius: var(--radio-sm);
+}
+
+/* ------------------------------------------------------------
+   Tarjetas / paneles de papel
+   ------------------------------------------------------------ */
+
+.panel {
+    padding: clamp(1.4rem, 3vw, 2.2rem);
+    background: rgba(22, 38, 74, 0.72);
+    border: var(--trazo) solid var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-dura);
+    backdrop-filter: blur(6px);
+}
+
+.panel--papel {
+    color: var(--tinta);
+    background: var(--crema);
+    background-image:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 4px);
+}
+
+.panel--papel .texto-tenue {
+    color: var(--tinta-suave);
+}
+
+/* ------------------------------------------------------------
+   Formularios
+   ------------------------------------------------------------ */
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.campo__etiqueta {
+    font-family: var(--fuente-oficial);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--azul-brillo);
+}
+
+.campo__caja {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.campo__entrada {
+    width: 100%;
+    padding: 0.78rem 1rem;
+    color: var(--crema);
+    background: rgba(7, 13, 28, 0.6);
+    border: var(--trazo-fino) solid rgba(127, 227, 255, 0.35);
+    border-radius: var(--radio-sm);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.campo__entrada::placeholder {
+    color: rgba(169, 183, 212, 0.55);
+}
+
+.campo__entrada:focus {
+    outline: none;
+    background: rgba(7, 13, 28, 0.85);
+    border-color: var(--azul-sans);
+    box-shadow: var(--resplandor-azul);
+}
+
+.campo__entrada[aria-invalid="true"] {
+    border-color: var(--rojo-alerta);
+    box-shadow: 0 0 14px rgba(255, 92, 108, 0.4);
+}
+
+.campo--con-boton .campo__entrada {
+    padding-right: 3.2rem;
+}
+
+.campo__ojo {
+    position: absolute;
+    right: 0.55rem;
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.05rem;
+    color: var(--texto-tenue);
+    border-radius: 50%;
+    transition: color 0.16s ease, background-color 0.16s ease;
+}
+
+.campo__ojo:hover {
+    color: var(--azul-brillo);
+    background: rgba(56, 182, 255, 0.15);
+}
+
+.campo__error {
+    min-height: 1.1rem;
+    font-size: 0.78rem;
+    color: var(--rojo-alerta);
+}
+
+/* ------------------------------------------------------------
+   Avisos
+   ------------------------------------------------------------ */
+
+.aviso {
+    display: none;
+    gap: 0.6rem;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border: var(--trazo-fino) solid;
+    border-radius: var(--radio-sm);
+}
+
+.aviso.esta-visible {
+    display: flex;
+}
+
+.aviso--error {
+    color: #ffd9dd;
+    background: rgba(255, 92, 108, 0.14);
+    border-color: var(--rojo-alerta);
+}
+
+.aviso--ok {
+    color: #d9fff0;
+    background: rgba(87, 217, 154, 0.14);
+    border-color: var(--verde-ok);
+}
+
+/* ------------------------------------------------------------
+   Barra superior
+   ------------------------------------------------------------ */
+
+.barra {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem clamp(1rem, 4vw, 2.5rem);
+    background: rgba(14, 26, 51, 0.82);
+    border-bottom: var(--trazo-fino) solid rgba(127, 227, 255, 0.25);
+    backdrop-filter: blur(10px);
+}
+
+.barra__marca {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--fuente-titulo);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--crema);
+}
+
+.barra__marca:hover {
+    text-decoration: none;
+}
+
+/* Marcador de posición del logo: se reemplaza cuando llegue el oficial */
+.marca__sello {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1.2rem;
+    background: radial-gradient(circle at 32% 28%, var(--azul-brillo), var(--azul-hondo));
+    border: var(--trazo-fino) solid var(--borde);
+    border-radius: 50%;
+    box-shadow: var(--resplandor-azul);
+}
+
+.barra__enlaces {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 1.4rem);
+}
+
+.barra__enlace {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--texto-tenue);
+    transition: color 0.16s ease;
+}
+
+.barra__enlace:hover,
+.barra__enlace[aria-current="page"] {
+    color: var(--azul-brillo);
+    text-decoration: none;
+}
+
+/* ------------------------------------------------------------
+   Pie
+   ------------------------------------------------------------ */
+
+.pie {
+    padding: 2rem 1.5rem 2.5rem;
+    font-size: 0.82rem;
+    text-align: center;
+    color: var(--texto-tenue);
+    border-top: var(--trazo-fino) solid rgba(127, 227, 255, 0.18);
+}
+
+.pie__nota {
+    margin-top: 0.4rem;
+    font-family: var(--fuente-oficial);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+}
+
+/* ------------------------------------------------------------
+   Utilidades
+   ------------------------------------------------------------ */
+
+.solo-lectores {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.centrado {
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    .barra__enlace--secundario {
+        display: none;
+    }
+}

@@ -1,0 +1,277 @@
+/* ============================================================
+   ANIMACIONES — Natalier
+   Referencias de movimiento:
+     · Sans (Undertale) → flotación de huesos, destello del ojo
+     · Hello Kitty      → rebotes suaves, corazones que suben
+     · OMORI            → glitch de tinta, latido de papel
+     · FNAF             → estática, parpadeo de luz, tensión
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Keyframes
+   ------------------------------------------------------------ */
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0) rotate(var(--giro, 0deg)); }
+    50%      { transform: translateY(-14px) rotate(calc(var(--giro, 0deg) + 4deg)); }
+}
+
+@keyframes derivar {
+    0%   { transform: translate3d(0, 110vh, 0) rotate(0deg); opacity: 0; }
+    8%   { opacity: var(--opacidad-pico, 0.55); }
+    92%  { opacity: var(--opacidad-pico, 0.55); }
+    100% { transform: translate3d(var(--deriva, 40px), -18vh, 0) rotate(320deg); opacity: 0; }
+}
+
+@keyframes rebote-kawaii {
+    0%, 100% { transform: translateY(0) scale(1); }
+    30%      { transform: translateY(-9px) scale(1.05, 0.95); }
+    55%      { transform: translateY(0) scale(0.96, 1.04); }
+    75%      { transform: translateY(-3px) scale(1.01, 0.99); }
+}
+
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    14%      { transform: scale(1.06); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.04); }
+}
+
+@keyframes destello-ojo {
+    0%, 88%, 100% {
+        box-shadow: 0 0 10px rgba(56, 182, 255, 0.5);
+        filter: brightness(1);
+    }
+    92% {
+        box-shadow: 0 0 34px rgba(127, 227, 255, 0.95), 0 0 60px rgba(255, 158, 199, 0.5);
+        filter: brightness(1.35);
+    }
+    96% {
+        box-shadow: 0 0 12px rgba(56, 182, 255, 0.6);
+        filter: brightness(1.05);
+    }
+}
+
+@keyframes parpadeo-luz {
+    0%, 100%    { opacity: 1; }
+    41%, 43%    { opacity: 0.35; }
+    42%         { opacity: 0.85; }
+    62%, 64%    { opacity: 0.55; }
+    63%         { opacity: 1; }
+}
+
+@keyframes glitch-tinta {
+    0%, 92%, 100% { transform: translate(0, 0); text-shadow: none; }
+    93%  { transform: translate(-2px, 1px); text-shadow: 2px 0 var(--rosa-kitty), -2px 0 var(--azul-brillo); }
+    95%  { transform: translate(2px, -1px); text-shadow: -2px 0 var(--rosa-kitty), 2px 0 var(--azul-brillo); }
+    97%  { transform: translate(-1px, 0); text-shadow: 1px 0 var(--azul-brillo); }
+}
+
+@keyframes estatica {
+    0%   { transform: translate(0, 0); }
+    20%  { transform: translate(-3%, 2%); }
+    40%  { transform: translate(2%, -3%); }
+    60%  { transform: translate(-2%, -2%); }
+    80%  { transform: translate(3%, 1%); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes aparecer-arriba {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes entrar-sello {
+    0%   { opacity: 0; transform: scale(2.4) rotate(-18deg); }
+    60%  { opacity: 1; transform: scale(0.92) rotate(3deg); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+}
+
+@keyframes temblor {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-7px); }
+    40%      { transform: translateX(6px); }
+    60%      { transform: translateX(-4px); }
+    80%      { transform: translateX(3px); }
+}
+
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes barrido-brillo {
+    from { transform: translateX(-120%) skewX(-18deg); }
+    to   { transform: translateX(220%) skewX(-18deg); }
+}
+
+/* ------------------------------------------------------------
+   Clases aplicables
+   ------------------------------------------------------------ */
+
+.anim-flotar {
+    animation: flotar 5.5s ease-in-out infinite;
+}
+
+.anim-rebote {
+    animation: rebote-kawaii 2.6s ease-in-out infinite;
+}
+
+.anim-latido {
+    animation: latido 3.4s ease-in-out infinite;
+}
+
+.anim-parpadeo {
+    animation: parpadeo-luz 7s steps(1, end) infinite;
+}
+
+.anim-glitch {
+    animation: glitch-tinta 6s steps(1, end) infinite;
+}
+
+.anim-ojo {
+    animation: destello-ojo 6.5s ease-in-out infinite;
+}
+
+.anim-temblor {
+    animation: temblor 0.42s ease-in-out;
+}
+
+.anim-girar {
+    animation: girar 0.9s linear infinite;
+}
+
+/* Entradas escalonadas: se combinan con [data-revelar] desde JS */
+.anim-entrada {
+    animation: aparecer-arriba 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-retraso-1 { animation-delay: 0.1s; }
+.anim-retraso-2 { animation-delay: 0.22s; }
+.anim-retraso-3 { animation-delay: 0.34s; }
+.anim-retraso-4 { animation-delay: 0.46s; }
+.anim-retraso-5 { animation-delay: 0.58s; }
+
+/* ------------------------------------------------------------
+   Revelado al hacer scroll (lo activa efectos.js)
+   ------------------------------------------------------------ */
+
+[data-revelar] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-revelar].esta-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ------------------------------------------------------------
+   Capas de ambiente (fondo global)
+   ------------------------------------------------------------ */
+
+.ambiente {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* Estática de cámara de seguridad — casi imperceptible, siempre ahí */
+.ambiente__estatica {
+    position: absolute;
+    inset: -50%;
+    opacity: 0.05;
+    mix-blend-mode: screen;
+    background-image:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 3px);
+    animation: estatica 0.55s steps(3, end) infinite;
+}
+
+/* Línea de barrido de monitor */
+.ambiente__barrido {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(180deg, transparent, rgba(127, 227, 255, 0.07), transparent);
+    animation: derivar 11s linear infinite;
+    --deriva: 0px;
+    --opacidad-pico: 1;
+}
+
+/* Partículas: huesos, corazones y estrellas creadas por efectos.js */
+.particula {
+    position: absolute;
+    bottom: -12vh;
+    font-size: var(--tam, 1.1rem);
+    line-height: 1;
+    user-select: none;
+    animation: derivar var(--duracion, 16s) linear infinite;
+    animation-delay: var(--espera, 0s);
+    will-change: transform, opacity;
+}
+
+.particula--hueso  { color: var(--crema);      text-shadow: 0 0 10px rgba(127, 227, 255, 0.75); }
+.particula--corazon{ color: var(--rosa-kitty); text-shadow: 0 0 10px rgba(255, 158, 199, 0.7); }
+.particula--estrella { color: var(--amarillo); text-shadow: 0 0 10px rgba(255, 212, 94, 0.7); }
+
+/* ------------------------------------------------------------
+   Efectos puntuales
+   ------------------------------------------------------------ */
+
+/* Brillo que cruza un botón o tarjeta al pasar el cursor */
+.brillo-hover {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.brillo-hover::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 45%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: translateX(-120%) skewX(-18deg);
+    pointer-events: none;
+}
+
+.brillo-hover:hover::after {
+    animation: barrido-brillo 0.75s ease-out;
+}
+
+/* Transición de salida al navegar entre páginas */
+.pagina-saliendo {
+    animation: aparecer 0.32s ease-in reverse both;
+}
+
+/* ------------------------------------------------------------
+   Respeto por quien prefiere menos movimiento
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-revelar] {
+        opacity: 1;
+        transform: none;
+    }
+
+    .ambiente {
+        display: none;
+    }
+}
