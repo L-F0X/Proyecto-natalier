@@ -1,9 +1,10 @@
 /* ============================================================
    CÉDULA — Natalier
    Rellena la tarjeta de Cedula.html con los datos reales del
-   perfil que ya trajo Almacen.sesionActual(). El control de
-   acceso (redirigir a Login.html si no hay sesión) lo hace
-   formularios.js antes de que esto se ejecute.
+   perfil. No vuelve a preguntarle a Supabase por la sesión: usa
+   la que ya resolvió formularios.js (evita crear el perfil dos
+   veces a la vez la primera vez que alguien confirma su correo
+   y cae aquí — ver el evento "natalier:sesion-lista").
    ============================================================ */
 
 (function () {
@@ -22,10 +23,7 @@
         });
     }
 
-    async function iniciar() {
-        if (!window.Almacen) return;
-
-        const sesion = await window.Almacen.sesionActual();
+    function pintar(sesion) {
         if (!sesion) return; // formularios.js ya se encarga de mandar a Login.html
 
         const nombre = document.querySelector('[data-cedula-nombre]');
@@ -37,9 +35,5 @@
         if (fecha) fecha.textContent = formatearFecha(sesion.creado_en);
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', iniciar);
-    } else {
-        iniciar();
-    }
+    document.addEventListener('natalier:sesion-lista', (evento) => pintar(evento.detail));
 })();

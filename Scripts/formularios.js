@@ -459,6 +459,12 @@
         montarOjos();
         montarLogin();
         montarRegistro();
+
+        // Otras páginas (como Cedula.html) escuchan esto en vez de volver
+        // a consultar la sesión por su cuenta: preguntarle a Supabase dos
+        // veces a la vez, justo cuando el perfil todavía no existe, puede
+        // hacer que dos intentos de creación choquen entre sí.
+        document.dispatchEvent(new CustomEvent('natalier:sesion-lista', { detail: sesion }));
     }
 
     if (document.readyState === 'loading') {
