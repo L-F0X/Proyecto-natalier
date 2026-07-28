@@ -51,19 +51,46 @@ window.Almacen = (function () {
 
     /* --------------------------------------------------------
        Perfil (tabla "perfiles")
+       Con la confirmación de correo activada, entre el signUp y
+       la primera sesión real puede pasar rato (o pasar en otro
+       dispositivo). Por eso el perfil no se crea solo en el
+       momento del registro: se "asegura" cada vez que detectamos
+       una sesión válida, usando el nombre guardado como metadata
+       del usuario en Supabase Auth.
        -------------------------------------------------------- */
 
-    async function obtenerPerfilPropio(supabase) {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return null;
-
-        const { data } = await supabase
+    async function asegurarPerfilExiste(supabase, user) {
+        const { data: existente } = await supabase
             .from('perfiles')
             .select('*')
             .eq('id', user.id)
             .maybeSingle();
 
-        return data;
+        if (existente) return existente;
+
+        const nombreDeseado =
+            (user.user_metadata && user.user_metadata.usuario) ||
+            user.email.split('@')[0];
+
+        const { data: creado, error } = await supabase
+            .from('perfiles')
+            .insert({ id: user.id, usuario: nombreDeseado })
+            .select()
+            .single();
+
+        if (error) {
+            console.warn('[Natalier] No se pudo crear el perfil automáticamente', error);
+            return null;
+        }
+
+        return creado;
+    }
+
+    async function obtenerPerfilPropio(supabase) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return null;
+
+        return asegurarPerfilExiste(supabase, user);
     }
 
     /* --------------------------------------------------------
@@ -95,7 +122,14 @@ window.Almacen = (function () {
 
         const { data, error } = await supabase.auth.signUp({
             email: normalizar(correo),
-            password: clave
+            password: clave,
+            options: {
+                // Se guarda el nombre elegido como metadata: si hay que
+                // confirmar el correo, lo recuperamos cuando por fin
+                // aparezca la sesión (ver asegurarPerfilExiste).
+                data: { usuario: nombreNatalier },
+                emailRedirectTo: `${window.location.origin}${window.location.pathname.replace(/[^/]*$/, '')}Cedula.html`
+            }
         });
 
         if (error) return { ok: false, ...traducirErrorAuth(error) };
@@ -107,23 +141,14 @@ window.Almacen = (function () {
             return {
                 ok: true,
                 requiereConfirmacion: true,
-                mensaje: 'Te enviamos un correo de confirmación. Ábrelo para activar tu expediente y luego inicia sesión.'
+                mensaje: 'Te enviamos un correo de confirmación. Ábrelo y entrarás directo a tu Cédula.'
             };
         }
 
-        const { data: perfil, error: errorPerfil } = await supabase
-            .from('perfiles')
-            .insert({ id: data.user.id, usuario: nombreNatalier })
-            .select()
-            .single();
+        const perfil = await asegurarPerfilExiste(supabase, data.user);
 
-        if (errorPerfil) {
-            return {
-                ok: false,
-                mensaje: /unique/i.test(errorPerfil.message)
-                    ? 'Ese nombre de Natalier se lo ganó alguien más justo antes que tú. Prueba otro.'
-                    : 'Tu cuenta se creó pero el expediente falló. Recarga e intenta iniciar sesión.'
-            };
+        if (!perfil) {
+            return { ok: false, mensaje: 'Tu cuenta se creó pero el expediente falló. Recarga e intenta iniciar sesión.' };
         }
 
         return { ok: true, usuario: perfil };
