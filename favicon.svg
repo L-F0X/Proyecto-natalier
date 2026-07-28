@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Logo Natalier">
+    <defs>
+        <radialGradient id="fondoNatalier" cx="32%" cy="28%" r="75%">
+            <stop offset="0%" stop-color="#7fe3ff" />
+            <stop offset="100%" stop-color="#1c6fb8" />
+        </radialGradient>
+    </defs>
+
+    <!-- Insignia circular -->
+    <circle cx="32" cy="32" r="29" fill="url(#fondoNatalier)" stroke="#16161d" stroke-width="3" />
+
+    <!-- Moño kawaii -->
+    <g transform="translate(32,8)">
+        <path d="M-7 0 L0 -4.5 L0 4.5 Z" fill="#ff9ec7" stroke="#16161d" stroke-width="1.3" stroke-linejoin="round" />
+        <path d="M7 0 L0 -4.5 L0 4.5 Z" fill="#ff9ec7" stroke="#16161d" stroke-width="1.3" stroke-linejoin="round" />
+        <circle cx="0" cy="0" r="2" fill="#e4649b" stroke="#16161d" stroke-width="1" />
+    </g>
+
+    <!-- Ojo izquierdo: blanco y brillante -->
+    <ellipse cx="22" cy="34" rx="6.5" ry="8.5" fill="#fdf6e8" stroke="#16161d" stroke-width="1.3" />
+    <circle cx="22" cy="36" r="2.6" fill="#16161d" />
+
+    <!-- Ojo derecho: distinto, rosa -->
+    <path d="M41 25 L47 34 L41 43 L35 34 Z" fill="#ff9ec7" stroke="#16161d" stroke-width="1.3"
+        stroke-linejoin="round" />
+    <circle cx="41" cy="34" r="2.2" fill="#16161d" />
+
+    <!-- Sonrisa -->
+    <path d="M23 46 Q32 51 41 46" fill="none" stroke="#16161d" stroke-width="2" stroke-linecap="round" />
+</svg>

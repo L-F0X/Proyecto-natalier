@@ -247,7 +247,15 @@
     animation: barrido-brillo 0.75s ease-out;
 }
 
-/* Transición de salida al navegar entre páginas */
+/* Transición de entrada y salida al navegar entre páginas:
+   cada página nueva hace un fundido de entrada al cargar, y
+   Efectos.irA() agrega .pagina-saliendo antes de irse a la
+   siguiente — entre las dos se siente como un cambio de página
+   continuo en vez de un salto seco. */
+body {
+    animation: aparecer 0.45s ease both;
+}
+
 .pagina-saliendo {
     animation: aparecer 0.32s ease-in reverse both;
 }
