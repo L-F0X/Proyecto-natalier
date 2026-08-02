@@ -104,8 +104,95 @@ alter table public.perfiles
     );
 
 -- ============================================================
--- Cuando lleguemos a la Cédula (foto, colores, frase, rango),
--- esta tabla se amplía con más columnas o con una tabla aparte
--- "cedulas" enlazada por perfil_id. Por ahora es lo mínimo para
--- que el registro y el login funcionen de verdad.
+-- Protección en UPDATE: la política de arriba solo revisa que
+-- cada quien edite SU fila, pero no qué columnas toca. Sin esto,
+-- cualquiera podría abrir la consola y cambiarse su propio
+-- número de expediente, su fecha de alta o su nombre de usuario
+-- ya validado. El trigger fuerza esos campos a quedarse como
+-- estaban, pase lo que pase en el UPDATE que mande el navegador.
 -- ============================================================
+
+create or replace function public.antes_de_actualizar_perfil()
+returns trigger
+language plpgsql
+as $$
+begin
+    new.id                := old.id;
+    new.numero_expediente := old.numero_expediente;
+    new.creado_en          := old.creado_en;
+    new.usuario            := old.usuario;
+    -- La única razón por la que la app actualiza un perfil hoy es
+    -- para guardar la personalización de la Cédula, así que basta
+    -- con marcarla como creada en cualquier actualización real.
+    new.cedula_creada      := true;
+    return new;
+end;
+$$;
+
+drop trigger if exists trigger_proteger_actualizacion on public.perfiles;
+create trigger trigger_proteger_actualizacion
+    before update on public.perfiles
+    for each row execute function public.antes_de_actualizar_perfil();
+
+-- ============================================================
+-- Personalización de la Cédula: avatar (de galería o foto propia),
+-- color de fondo elegido libremente y frase característica.
+-- ============================================================
+
+alter table public.perfiles add column if not exists color_fondo text not null default '#fdf6e8';
+alter table public.perfiles add column if not exists frase text;
+alter table public.perfiles add column if not exists avatar_tipo text not null default 'galeria';
+alter table public.perfiles add column if not exists avatar_valor text not null default '💙';
+
+alter table public.perfiles drop constraint if exists color_fondo_formato;
+alter table public.perfiles
+    add constraint color_fondo_formato check (color_fondo ~ '^#[0-9a-fA-F]{6}$');
+
+alter table public.perfiles drop constraint if exists avatar_tipo_valido;
+alter table public.perfiles
+    add constraint avatar_tipo_valido check (avatar_tipo in ('galeria', 'foto'));
+
+alter table public.perfiles drop constraint if exists frase_longitud;
+alter table public.perfiles
+    add constraint frase_longitud check (frase is null or char_length(frase) <= 80);
+
+-- ------------------------------------------------------------
+-- Storage: bucket público "avatares" para las fotos que suba
+-- cada quien. Público en LECTURA (la Cédula se hizo para
+-- mostrarse), pero cada quien solo puede subir/cambiar/borrar
+-- dentro de su propia carpeta — la carpeta raíz de cada archivo
+-- tiene que ser exactamente su id de usuario.
+-- ------------------------------------------------------------
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('avatares', 'avatares', true, 3145728, array['image/png', 'image/jpeg', 'image/webp'])
+on conflict (id) do nothing;
+
+drop policy if exists "avatares_lectura_publica" on storage.objects;
+create policy "avatares_lectura_publica"
+    on storage.objects for select
+    using (bucket_id = 'avatares');
+
+drop policy if exists "avatares_subir_propio" on storage.objects;
+create policy "avatares_subir_propio"
+    on storage.objects for insert
+    with check (
+        bucket_id = 'avatares'
+        and (storage.foldername(name))[1] = auth.uid()::text
+    );
+
+drop policy if exists "avatares_actualizar_propio" on storage.objects;
+create policy "avatares_actualizar_propio"
+    on storage.objects for update
+    using (
+        bucket_id = 'avatares'
+        and (storage.foldername(name))[1] = auth.uid()::text
+    );
+
+drop policy if exists "avatares_borrar_propio" on storage.objects;
+create policy "avatares_borrar_propio"
+    on storage.objects for delete
+    using (
+        bucket_id = 'avatares'
+        and (storage.foldername(name))[1] = auth.uid()::text
+    );

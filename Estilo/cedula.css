@@ -1,0 +1,143 @@
+/* ============================================================
+   EDITOR DE CÉDULA — Cedula.html
+   Formulario de personalización: avatar (galería o foto), color
+   libre y frase característica. La tarjeta en sí usa las clases
+   .cedula / .cedula--personalizada que viven en index.css.
+   ============================================================ */
+
+.editor-cedula {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.editor-cedula__bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* ------------------------------------------------------------
+   Pestañas: Galería / Subir foto
+   ------------------------------------------------------------ */
+
+.editor-cedula__pestanas {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.editor-cedula__pestana {
+    padding: 0.5rem 1rem;
+    font-family: var(--fuente-titulo);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--texto-tenue);
+    background: rgba(56, 182, 255, 0.08);
+    border: var(--trazo-fino) solid rgba(127, 227, 255, 0.3);
+    border-radius: 999px;
+    transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+}
+
+.editor-cedula__pestana:hover {
+    color: var(--crema);
+}
+
+.editor-cedula__pestana[aria-selected="true"] {
+    color: var(--tinta);
+    background: var(--azul-sans);
+    border-color: var(--azul-sans);
+}
+
+/* ------------------------------------------------------------
+   Galería de avatares
+   ------------------------------------------------------------ */
+
+.editor-cedula__galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+    gap: 0.5rem;
+}
+
+.editor-cedula__galeria[hidden],
+.editor-cedula__foto[hidden] {
+    display: none;
+}
+
+.editor-cedula__avatar {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    font-size: 1.5rem;
+    background: rgba(7, 13, 28, 0.5);
+    border: var(--trazo-fino) solid rgba(127, 227, 255, 0.3);
+    border-radius: var(--radio-sm);
+    transition: transform 0.14s ease, border-color 0.14s ease, background-color 0.14s ease;
+}
+
+.editor-cedula__avatar:hover {
+    transform: translateY(-2px);
+    border-color: var(--azul-brillo);
+}
+
+.editor-cedula__avatar[aria-pressed="true"] {
+    background: rgba(56, 182, 255, 0.22);
+    border-color: var(--azul-brillo);
+    box-shadow: var(--resplandor-azul);
+}
+
+/* ------------------------------------------------------------
+   Subir foto
+   ------------------------------------------------------------ */
+
+.editor-cedula__foto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.editor-cedula__vista {
+    display: none;
+    width: 4.5rem;
+    height: 4.5rem;
+    object-fit: cover;
+    border: var(--trazo-fino) solid var(--borde);
+    border-radius: var(--radio-sm);
+}
+
+.editor-cedula__vista.esta-visible {
+    display: block;
+}
+
+.editor-cedula__ayuda {
+    font-size: 0.78rem;
+}
+
+/* ------------------------------------------------------------
+   Color
+   ------------------------------------------------------------ */
+
+.editor-cedula__color {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.editor-cedula__color input[type="color"] {
+    width: 3rem;
+    height: 2.6rem;
+    padding: 0.2rem;
+    background: rgba(7, 13, 28, 0.6);
+    border: var(--trazo-fino) solid rgba(127, 227, 255, 0.35);
+    border-radius: var(--radio-sm);
+    cursor: pointer;
+}
+
+.editor-cedula__color input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 2px;
+}
+
+.editor-cedula__color input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+}

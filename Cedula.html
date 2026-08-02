@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="Estilo/base.css">
     <link rel="stylesheet" href="Estilo/index.css">
+    <link rel="stylesheet" href="Estilo/cedula.css">
     <link rel="stylesheet" href="Animaciones/animaciones.css">
 </head>
 
@@ -46,7 +47,7 @@
         </div>
 
         <div class="previa" style="margin-top: 2.5rem;">
-            <article class="cedula anim-flotar" aria-label="Tu Cédula Natalier">
+            <article class="cedula cedula--personalizada anim-flotar" data-tarjeta-cedula aria-label="Tu Cédula Natalier">
                 <header class="cedula__cabecera">
                     <div>
                         <div class="cedula__pais">República de Natalandia</div>
@@ -56,7 +57,7 @@
                 </header>
 
                 <div class="cedula__cuerpo">
-                    <div class="cedula__foto" aria-hidden="true">💙</div>
+                    <div class="cedula__foto" data-cedula-foto aria-hidden="true"></div>
 
                     <div class="cedula__campos">
                         <div>
@@ -72,6 +73,8 @@
                             <div class="cedula__valor" data-cedula-fecha>Cargando…</div>
                         </div>
                     </div>
+
+                    <p class="cedula__frase" data-cedula-frase></p>
                 </div>
 
                 <footer class="cedula__pie">
@@ -82,19 +85,64 @@
                     <div class="cedula__banda">NAT&lt;&lt;NATALANDIA&lt;&lt;NATALAN&lt;&lt;0000000&lt;&lt;GTM</div>
                 </footer>
 
-                <span class="cedula__sello">Vigente</span>
+                <span class="cedula__sello cedula__sello--vigente">Vigente</span>
             </article>
         </div>
 
-        <div class="panel centrado" data-revelar
-            style="margin-top: 2.5rem; max-width: 46rem; margin-inline: auto;">
-            <h3>La personalización llega pronto</h3>
-            <p class="texto-tenue" style="margin-top: 0.5rem;">
-                Foto, colores, frase característica y tu rango dentro de la comunidad
-                se agregan en la siguiente actualización. Por ahora, esta es tu Cédula
-                base — ya con tu número de expediente real.
-            </p>
-        </div>
+        <form class="panel editor-cedula" data-revelar id="formulario-cedula" novalidate
+            style="margin-top: 2.5rem; max-width: 30rem; margin-inline: auto;">
+            <div>
+                <h3>Personaliza tu Cédula</h3>
+                <p class="texto-tenue" style="margin-top: 0.3rem;">Los cambios se ven en la tarjeta antes de guardar.</p>
+            </div>
+
+            <div class="aviso" data-aviso role="status" aria-live="polite"></div>
+
+            <div class="editor-cedula__bloque">
+                <span class="campo__etiqueta">Avatar</span>
+
+                <div class="editor-cedula__pestanas" role="tablist" aria-label="Tipo de avatar">
+                    <button type="button" class="editor-cedula__pestana" data-pestana-avatar="galeria"
+                        role="tab" aria-selected="true">Galería</button>
+                    <button type="button" class="editor-cedula__pestana" data-pestana-avatar="foto"
+                        role="tab" aria-selected="false">Subir foto</button>
+                </div>
+
+                <div class="editor-cedula__galeria" data-panel-avatar="galeria" role="group"
+                    aria-label="Elige un avatar de la galería"></div>
+
+                <div class="editor-cedula__foto" data-panel-avatar="foto" hidden>
+                    <img class="editor-cedula__vista" data-vista-foto alt="Vista previa de tu foto">
+                    <label class="boton boton--fantasma brillo-hover" for="archivo-avatar">
+                        <span aria-hidden="true">📷</span> Elegir imagen
+                    </label>
+                    <input type="file" id="archivo-avatar" accept="image/png,image/jpeg,image/webp"
+                        class="solo-lectores">
+                    <p class="texto-tenue editor-cedula__ayuda">JPG, PNG o WEBP. Se ajusta sola al tamaño de la
+                        cédula.</p>
+                    <span class="campo__error" data-error-avatar aria-live="polite"></span>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label class="campo__etiqueta" for="color-cedula">Color de tu Cédula</label>
+                <div class="editor-cedula__color">
+                    <input type="color" id="color-cedula" value="#fdf6e8">
+                    <span class="texto-tenue">Elige el que más te represente.</span>
+                </div>
+            </div>
+
+            <div class="campo">
+                <label class="campo__etiqueta" for="frase-cedula">Frase característica</label>
+                <div class="campo__caja">
+                    <input class="campo__entrada" id="frase-cedula" maxlength="80"
+                        placeholder="Algo que te represente…">
+                </div>
+                <span class="campo__error" aria-live="polite"></span>
+            </div>
+
+            <button class="boton boton--rosa boton--ancho brillo-hover" type="submit">Guardar mi Cédula</button>
+        </form>
     </main>
 
     <footer class="pie">

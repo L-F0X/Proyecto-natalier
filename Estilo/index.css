@@ -121,6 +121,46 @@
     transform: rotate(0deg) scale(1.03);
 }
 
+/* Tarjeta real (Cedula.html): el color de fondo lo elige cada
+   quien con un selector libre. Para que el texto nunca quede
+   ilegible, cedula.js calcula --cedula-texto (negro o crema
+   según qué tan clara sea la elección) y aquí se deriva todo
+   lo demás — incluida la versión "tenue" con color-mix(), sin
+   tener que calcular un segundo color a mano. */
+.cedula--personalizada {
+    --cedula-texto-tenue: color-mix(in srgb, var(--cedula-texto, var(--tinta)) 65%, transparent);
+    background-color: var(--cedula-color, var(--crema));
+    background-image:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.022) 0 1px, transparent 1px 4px);
+    color: var(--cedula-texto, var(--tinta));
+}
+
+.cedula--personalizada .cedula__cabecera {
+    border-bottom-color: var(--cedula-texto, var(--tinta));
+}
+
+.cedula--personalizada .cedula__pais,
+.cedula--personalizada .cedula__clave,
+.cedula--personalizada .cedula__firma,
+.cedula--personalizada .cedula__banda,
+.cedula--personalizada .cedula__frase {
+    color: var(--cedula-texto-tenue, var(--tinta-suave));
+}
+
+.cedula--personalizada .cedula__tipo,
+.cedula--personalizada .cedula__valor {
+    color: var(--cedula-texto, var(--tinta));
+}
+
+.cedula--personalizada .cedula__pie {
+    border-top-color: var(--cedula-texto-tenue, var(--tinta-suave));
+}
+
+.cedula__sello--vigente {
+    color: var(--verde-ok);
+    border-color: var(--verde-ok);
+}
+
 .cedula__cabecera {
     display: flex;
     align-items: center;
@@ -155,11 +195,33 @@
 .cedula__foto {
     display: grid;
     place-items: center;
+    overflow: hidden;
     height: 108px;
     font-size: 2.4rem;
     background: linear-gradient(160deg, var(--azul-brillo), var(--rosa-suave));
     border: var(--trazo-fino) solid var(--tinta);
     border-radius: var(--radio-sm);
+}
+
+.cedula__foto-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cedula__frase {
+    grid-column: 1 / -1;
+    margin-top: 0.2rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed rgba(58, 58, 74, 0.3);
+    font-style: italic;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: var(--tinta-suave);
+}
+
+.cedula__frase:empty {
+    display: none;
 }
 
 .cedula__campos {

@@ -199,6 +199,80 @@ window.Almacen = (function () {
     }
 
     /* --------------------------------------------------------
+       Personalización de la Cédula
+       -------------------------------------------------------- */
+
+    /**
+     * Sube una foto al bucket "avatares", en la carpeta del propio
+     * usuario (las políticas de Storage no dejan escribir en otra).
+     * Cada subida usa un nombre nuevo (con la hora) en vez de
+     * pisar siempre el mismo archivo: así nunca hay que pelear
+     * con la caché del navegador mostrando la foto vieja.
+     * @returns {Promise<{ok:boolean, mensaje?:string, ruta?:string, url?:string}>}
+     */
+    async function subirAvatar(archivo) {
+        const supabase = cliente();
+        if (!supabase) return SIN_CONFIGURAR;
+
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return { ok: false, mensaje: 'Tienes que iniciar sesión primero.' };
+
+        const extension = archivo.type === 'image/png' ? 'png' : archivo.type === 'image/webp' ? 'webp' : 'jpg';
+        const ruta = `${user.id}/${Date.now()}.${extension}`;
+
+        const { error } = await supabase.storage
+            .from('avatares')
+            .upload(ruta, archivo, { contentType: archivo.type });
+
+        if (error) {
+            console.warn('[Natalier] No se pudo subir la foto', error);
+            return { ok: false, mensaje: 'No se pudo subir la foto. Intenta de nuevo.' };
+        }
+
+        const { data } = supabase.storage.from('avatares').getPublicUrl(ruta);
+        return { ok: true, ruta, url: data.publicUrl };
+    }
+
+    /** Reconstruye la URL pública de una foto ya subida a partir de su ruta guardada. */
+    function urlAvatar(ruta) {
+        const supabase = cliente();
+        if (!supabase || !ruta) return null;
+
+        return supabase.storage.from('avatares').getPublicUrl(ruta).data.publicUrl;
+    }
+
+    /**
+     * Guarda el avatar, color y frase elegidos en el perfil.
+     * @returns {Promise<{ok:boolean, mensaje?:string, usuario?:object}>}
+     */
+    async function actualizarCedula({ colorFondo, frase, avatarTipo, avatarValor }) {
+        const supabase = cliente();
+        if (!supabase) return SIN_CONFIGURAR;
+
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return { ok: false, mensaje: 'Tienes que iniciar sesión primero.' };
+
+        const { data, error } = await supabase
+            .from('perfiles')
+            .update({
+                color_fondo: colorFondo,
+                avatar_tipo: avatarTipo,
+                avatar_valor: avatarValor,
+                frase: frase ? frase.trim() : null
+            })
+            .eq('id', user.id)
+            .select()
+            .single();
+
+        if (error) {
+            console.warn('[Natalier] No se pudo actualizar el perfil', error);
+            return { ok: false, mensaje: 'No se pudo guardar tu Cédula. Intenta de nuevo.' };
+        }
+
+        return { ok: true, usuario: data };
+    }
+
+    /* --------------------------------------------------------
        Validaciones compartidas (no tocan la base de datos)
        -------------------------------------------------------- */
 
@@ -240,6 +314,13 @@ window.Almacen = (function () {
             return null;
         },
 
+        /** La frase es opcional: solo se revisa que no se pase de largo. */
+        frase(valor) {
+            const v = String(valor || '').trim();
+            if (v.length > 80) return 'Máximo 80 caracteres.';
+            return null;
+        },
+
         /** Fuerza de 0 a 4, para la barra del registro. */
         fuerza(valor) {
             const v = String(valor || '');
@@ -263,6 +344,9 @@ window.Almacen = (function () {
         iniciarSesion,
         sesionActual,
         cerrarSesion,
+        subirAvatar,
+        urlAvatar,
+        actualizarCedula,
         Valida
     };
 })();
