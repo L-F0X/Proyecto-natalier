@@ -168,10 +168,13 @@ insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 values ('avatares', 'avatares', true, 3145728, array['image/png', 'image/jpeg', 'image/webp'])
 on conflict (id) do nothing;
 
+-- Ojo: NO se crea una política de SELECT aquí. El bucket ya es
+-- público (los archivos se pueden abrir por su URL sin sesión),
+-- así que una política de SELECT no agrega acceso a fotos — solo
+-- dejaría que cualquiera "liste" el bucket entero vía la API de
+-- Storage (ver todos los IDs de usuario y archivos que existen).
+-- Supabase lo marca como advertencia de seguridad con razón.
 drop policy if exists "avatares_lectura_publica" on storage.objects;
-create policy "avatares_lectura_publica"
-    on storage.objects for select
-    using (bucket_id = 'avatares');
 
 drop policy if exists "avatares_subir_propio" on storage.objects;
 create policy "avatares_subir_propio"
